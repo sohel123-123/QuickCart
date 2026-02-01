@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import path from "path";
+import path from "path"; 
+import { fileURLToPath } from "url";
 
 import authRoutes from './routes/auth.route.js'
 import productRoutes from './routes/product.route.js'
@@ -18,7 +19,9 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000
 
-const __dirname = Path.resolve();
+// ✅ Fix for __dirname in ES modules 
+const __filename = fileURLToPath(import.meta.url); 
+const __dirname = path.dirname(__filename);
 
 app.use(express.json({limit:"10mb"}))
 
